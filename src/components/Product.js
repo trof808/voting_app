@@ -2,6 +2,15 @@ import React, {Component} from 'react';
 import {Item, Icon} from 'semantic-ui-react';
 
 class Product extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleVote = this.handleVote.bind(this);
+    }
+
+    handleVote() {
+        this.props.onVote(this.props.id)
+    }
 
     render() {
         return (
@@ -15,7 +24,7 @@ class Product extends Component {
                         <Item.Image src={require(`../images/avatars/${this.props.authorImage}`)} avatar size="tiny" />
                     </Item.Extra>
                     <Item.Extra>
-                        <Icon name='like' />
+                        <Icon name='like' onClick={this.handleVote}/>
                         {this.props.likes} Likes
                     </Item.Extra>
                 </Item.Content>

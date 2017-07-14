@@ -10,7 +10,7 @@ const productData = [
         image: 'image-aqua.png',
         authorImage: 'daniel.jpg',
         author: 'John Smith',
-        likes: 11
+        likes: 9
     },
     {
         id: 2,
@@ -19,7 +19,7 @@ const productData = [
         image: 'image-rose.png',
         authorImage: 'elliot.jpg',
         author: 'Eliot Carter',
-        likes: 3
+        likes: 11
     },
     {
         id: 3,
@@ -28,7 +28,7 @@ const productData = [
         image: 'image-yellow.png',
         authorImage: 'justen.jpg',
         author: 'Justen Rose',
-        likes: 9
+        likes: 3
     }
 ]
 
@@ -37,9 +37,26 @@ class ProductList extends Component {
         super(props);
         this.state = {
             Slikes: false,
-            products: productData
+            products: []
         }
         this.sortedByLikes = this.sortedByLikes.bind(this);
+        this.handleProductUpVote = this.handleProductUpVote.bind(this);
+    }
+    componentDidMount() {
+        this.setState({ products: productData })
+    }
+    handleProductUpVote(productId) {
+        const nextProducts = this.state.products.map((product) => {
+            if(product.id === productId) {
+                return Object.assign({}, product, {
+                    likes: product.likes + 1
+                });
+            } else {
+                return product
+            }
+        })
+
+        this.setState({ products: nextProducts })
     }
     sortedByLikes() {
         this.setState({ 
@@ -63,12 +80,14 @@ class ProductList extends Component {
                         this.state.products.map((data) => {
                             return <Product 
                                         key={data.id}
+                                        id={data.id}
                                         title={data.title} 
                                         description={data.description}
                                         image={data.image}
                                         authorImage={data.authorImage}
                                         author={data.author}
-                                        likes={data.likes}/>
+                                        likes={data.likes}
+                                        onVote={this.handleProductUpVote}/>
                         })
                     }
                 </Item.Group>
