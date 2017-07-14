@@ -1,14 +1,25 @@
 import React, {Component} from 'react';
-import {Item} from 'semantic-ui-react';
+import {Item, Icon} from 'semantic-ui-react';
 
 class Product extends Component {
+
     render() {
         return (
             <Item>
-                <Item.Image src={require('../images/products/image-aqua.png')} size="small" />
+                <Item.Image src={require(`../images/products/${this.props.image}`)} size="small" floated="left" />
                 <Item.Content>
-                    hi
+                    <Item.Header as='a'>{this.props.title}</Item.Header>
+                    <Item.Description>{this.props.description}</Item.Description>
+                    <Item.Extra>
+                        <span>Submitted by: </span>
+                        <Item.Image src={require(`../images/avatars/${this.props.authorImage}`)} avatar size="tiny" />
+                    </Item.Extra>
+                    <Item.Extra>
+                        <Icon name='like' />
+                        {this.props.likes} Likes
+                    </Item.Extra>
                 </Item.Content>
+                
             </Item>
         )
     }
