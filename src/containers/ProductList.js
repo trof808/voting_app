@@ -33,19 +33,16 @@ const productData = [
 ]
 
 class ProductList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Slikes: false,
-            products: []
-        }
-        this.sortedByLikes = this.sortedByLikes.bind(this);
-        this.handleProductUpVote = this.handleProductUpVote.bind(this);
+
+    state = {
+        Slikes: false,
+        products: []
     }
+    
     componentDidMount() {
         this.setState({ products: productData })
     }
-    handleProductUpVote(productId) {
+    handleProductUpVote = (productId) => {
         const nextProducts = this.state.products.map((product) => {
             if(product.id === productId) {
                 return Object.assign({}, product, {
@@ -58,7 +55,7 @@ class ProductList extends Component {
 
         this.setState({ products: nextProducts })
     }
-    sortedByLikes() {
+    sortedByLikes = () => {
         this.setState({ 
             Slikes: !this.state.Slikes,
             products: this.state.products.sort((a,b) => (
